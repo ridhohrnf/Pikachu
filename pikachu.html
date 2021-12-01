@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokemon card</title>
+    <h1>Get Picakhu!</h1>
+</head>
+<body>
+    <div class="container">
+    <button id="btn" onclick="getpikachu()">Get!</button>
+        <div class="card">
+            <div class="card-header">
+                <h3 id="aidi"></h3>
+                <h3 class="name"></h3>    
+            </div>
+            <div class="card-img"></div>
+            <div class="type"><h3></h3>
+            </div>    
+        </div>
+    </div>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+            body{
+                font-family:"lato", sans-serif;
+            }
+            .card{
+                 /*background:linear-gradient(to bottom, rgb(245,163,41), rgb(233, 205, 45));*/
+                 width: 160px;
+                 height:250px;
+            }
+            img{
+                padding-left:20px;
+            }
+            .card-header, .type{
+                padding-left:20px;
+                padding-top:20px;
+            }
+            .container{
+                width:100%;
+                height:100%;
+                align-items: center;
+            }
+
+        </style>
+    <script>
+        let carding= document.querySelector(".card-img");
+        const name= document.querySelector(".name");
+        const type= document.querySelector(".type");
+        let id = document.getElementById("aidi");
+
+        async function getpikachu(){
+            const res = await fetch('https://pokeapi.co/api/v2/pokemon/pikachu');
+            const data = await res.json();
+            console.log(data);
+            let newid = data.id;
+            let img = data.sprites.front_shiny_female;
+            let newName = data.name;
+            const themeColor = typeColor[data.types[0].type.name];
+                
+            newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+            name.innerText = newName;
+                
+            newtypes = data.types[0].type.name;
+            newtypes = newtypes.charAt(0).toUpperCase() + newtypes.slice(1);
+            type.innerHTML = newtypes;
+            id.innerHTML = newid;
+
+            typeColor.style.backgroundColor = color;
+            carding.innerHTML = `<img src= ${img}>`;
+            
+        }
+    </script>
+</body>
+</html>
